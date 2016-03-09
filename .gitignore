@@ -2,3 +2,5 @@ target
 .idea
 *.class
 *.iml
+
+examples/.settings
