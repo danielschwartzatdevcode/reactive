@@ -1,7 +1,7 @@
 package com.devcode.euler368;
 
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -9,8 +9,6 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by christopheryamba on 04/03/16.
@@ -86,6 +84,7 @@ public class DigitsTest {
     }
 
     @Test //TODO refactor with RxJava
+    @Ignore
     public void shouldReturnConvergentSeries() {
         long start = System.currentTimeMillis();
         while (true) {
