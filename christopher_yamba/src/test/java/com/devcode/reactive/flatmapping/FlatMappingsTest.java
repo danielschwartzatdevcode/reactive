@@ -42,6 +42,7 @@ public class FlatMappingsTest {
 
     }
 
+
     @Test
     public void shouldCreatePhiInfinitesimal() {
         Observable<String> flatMapPositions = Observable.range(0,9)
