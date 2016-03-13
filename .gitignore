@@ -4,3 +4,9 @@ target
 *.iml
 
 examples/.settings
+
+daniel_schwartz/.classpath
+
+daniel_schwartz/.project
+
+daniel_schwartz/.settings/*
