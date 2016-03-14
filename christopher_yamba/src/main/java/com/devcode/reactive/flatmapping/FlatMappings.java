@@ -19,11 +19,12 @@ public class FlatMappings {
 
 
     public static Func2<Integer, Integer, String> getFibonacciFunction() {
-        return (x, y) -> String.format("%s/%s -> %s", FIBONACCI[x], FIBONACCI[y], fiboDivision(x, y));
+        return (i, j) -> String.format("%s/%s -> %s", FIBONACCI[j], FIBONACCI[i], fiboDivision(FIBONACCI[j], FIBONACCI[i]));
     }
 
-    private static BigDecimal fiboDivision(long x, long y) {
-        return BigDecimal.valueOf(x).divide(BigDecimal.valueOf(y),DECIMAL_PRECISION,BigDecimal.ROUND_UP);
+    private static BigDecimal fiboDivision(long numer, long denom) {
+        System.out.println(String.format("numer = %s, denom = %s", numer, denom));
+        return BigDecimal.valueOf(numer).divide(BigDecimal.valueOf(denom), DECIMAL_PRECISION, BigDecimal.ROUND_UP);
     }
 
 }

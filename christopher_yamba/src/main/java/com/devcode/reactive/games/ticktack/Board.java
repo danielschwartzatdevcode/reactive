@@ -11,6 +11,11 @@ import java.util.concurrent.TimeoutException;
  */
 public class Board extends AbstractBoardGameSubject {
 
+    /**
+     * inclined towards state-integrity without synchronized primitive
+     * how to read and write keeping state consistent.
+     *
+     */
     public Integer[][] board;
 
     private Board(Integer[][] board) {
