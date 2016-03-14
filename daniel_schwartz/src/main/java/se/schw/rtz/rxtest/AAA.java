@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.google.common.io.Closer;
 
 import rx.Observable;
-import rx.functions.Action0;
-import rx.functions.Action1;
+import rx.functions.Func1;
 import se.rtz.tool.util.csv.CsvFactory;
 import se.rtz.tool.util.csv.CsvReader;
 import se.rtz.tool.util.csv.CsvRecord;
@@ -28,7 +28,7 @@ public class AAA
          Observable<CsvRecord> observable = Observable.from(reader);
 
          printAnObservable(observable);
-         // printAnObservable(observable); - kan inte skrivas ut igen
+         // printAnObservable(observable); // - kan inte skrivas ut igen
       }
       finally
       {
@@ -38,28 +38,14 @@ public class AAA
 
    private static <T> void printAnObservable(Observable<T> observable)
    {
-      observable.subscribe(new Action1<T>()
-      {
-
-         public void call(T t)
-         {
-            System.out.println(t.toString());
-         }
-      }, new Action1<Throwable>()
-      {
-
-         public void call(Throwable t)
+      observable.subscribe( //
+         t -> System.out.println(t.toString()), //
+         t ->
          {
             System.err.println("oops, there was an error");
-         }
-      }, new Action0()
-      {
-
-         public void call()
-         {
-            System.out.println("---");
-         }
-      });
+            t.printStackTrace(System.err);
+         }, //
+         () -> System.out.println("---")); //
    }
 
    private static CsvReader openCsvReader(String pathname)
