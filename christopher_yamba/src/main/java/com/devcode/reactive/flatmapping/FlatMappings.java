@@ -23,7 +23,7 @@ public class FlatMappings {
     }
 
     private static BigDecimal fiboDivision(long x, long y) {
-        return BigDecimal.valueOf(x).divide(BigDecimal.valueOf(y),DECIMAL_PRECISION,BigDecimal.ROUND_UP);
+        return BigDecimal.valueOf(x).divide(BigDecimal.valueOf(y), DECIMAL_PRECISION, BigDecimal.ROUND_UP);
     }
 
 }
