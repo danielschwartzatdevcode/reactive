@@ -42,6 +42,22 @@ public class FlatMappingsTest {
 
     }
 
+
+    @Test
+    public void shouldCreatePhiInfinitesimal() {
+        Observable<String> flatMapPositions = Observable.range(0,9)
+                .flatMap(
+                        v -> {
+                            int start = v;
+                            return Observable.range(v, 2)
+                                    .filter(x -> x != start);
+                        },
+                        FlatMappings.getFibonacciFunction());
+
+        MyObservables.observableApiInfo(flatMapPositions, "flatMap Observable with tuple operations");
+
+    }
+
     private Func2<Integer, Integer, String> getFibonacciFunction() {
         return FlatMappings.getFibonacciFunction();
     }
