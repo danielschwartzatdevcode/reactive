@@ -45,7 +45,7 @@ public class IsPrimeFactory {
                 if (n % divisor == 0) {
                     return false;
                 }
-                divisor += 1;
+                divisor += 2;
             }
             return true;
         };
