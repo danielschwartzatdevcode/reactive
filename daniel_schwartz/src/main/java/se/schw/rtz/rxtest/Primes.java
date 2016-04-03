@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import rx.Observable;
-import rx.Subscription;
 
 public class Primes
 {
@@ -27,35 +26,50 @@ public class Primes
       {
          return primesBelowLimit.contains(n);
       }
-      else
+      else if (limit < n && n <= limit * limit)
       {
-         if (limit < n && n <= limit * limit)
-         {
-            return isPrimeWithinLimits(n);
-         }
-
-         else // if ((limit ^ 2) < n)
-         {
-            long newLimit = Math.round(Math.ceil(Math.sqrt(n)));
-            findPrimesUpToLimit(newLimit);
-            return isPrime(n);
-         }
+         return isPrimeWithinLimits(n);
       }
+      else // if ((limit ^ 2) < n)
+      {
+         if (isNotPrimeBasedOnKnownPrimes(n))
+         {
+            return false;
+         }
+         long newLimit = Math.round(Math.ceil(Math.sqrt(n)));
+         findPrimesUpToLimit(newLimit);
+         return isPrime(n);
+      }
+   }
+
+   private static boolean isNotPrimeBasedOnKnownPrimes(long n)
+   {
+      Observable<Integer> countFactors = Observable.from(primesBelowLimit).concatWith(Observable.from(primesAboveLimit))
+         .filter(t -> n % t == 0).count();
+
+      boolean nIsMaybePrime = Util.next(countFactors) == 0;
+
+      // if nIsMaybePrime is true then it means that none of the known primes divide n. But we do not have all primes,
+      // so we cant be sure.
+      // if nIsMaybePrime is false then it means that some of the known primes divide n. Then for sure n is not prime.
+
+      return !nIsMaybePrime;
    }
 
    private static boolean isPrimeWithinLimits(long n)
    {
       if (primesAboveLimit.contains(n)) return true;
 
-      Observable<Integer> obsevableOfOne = Observable.from(primesBelowLimit).filter(t -> n % t == 0).count();
+      Observable<Integer> countFactors = Observable.from(primesBelowLimit).filter(t -> n % t == 0).count();
 
-      Integer[] result =
-      { 0 };
-      obsevableOfOne.subscribe(t -> result[0] = t);
+      Integer r = Util.next(countFactors);
 
-      boolean nIsPrime = result[0] == 0;
+      boolean nIsPrime = r == 0;
 
-      if (nIsPrime) primesAboveLimit.add(n);
+      if (nIsPrime)
+      {
+         primesAboveLimit.add(n);
+      }
 
       return nIsPrime;
    }

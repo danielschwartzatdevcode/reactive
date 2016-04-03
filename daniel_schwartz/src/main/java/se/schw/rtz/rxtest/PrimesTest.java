@@ -9,6 +9,7 @@ public class PrimesTest
    @Test
    public void testIsPrime()
    {
+      Assert.assertFalse(Primes.isPrime(102L));
       Assert.assertTrue(Primes.isPrime(101L));
       Assert.assertFalse(Primes.isPrime(4L));
       Assert.assertTrue(Primes.isPrime(2L));
